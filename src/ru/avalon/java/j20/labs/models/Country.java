@@ -1,6 +1,9 @@
 package ru.avalon.java.j20.labs.models;
 
 import java.text.ParseException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Модель представления о стране.
@@ -48,6 +51,22 @@ public class Country {
      * TODO(Студент): для класса Country переопределить методы equals и hashCode
      */
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Country)) return false;
+        Country country = (Country) o;
+        return Objects.equals(getCode(), country.getCode()) &&
+                Objects.equals(getName(), country.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getCode(), getName());
+    }
+
+
+
     /**
      * Возвращает экземпляр страны созданный из переданного
      * текста в формате 'Код:Название'.
@@ -61,6 +80,10 @@ public class Country {
         /*
          * TODO(Студент): Реализовать метод valueOf класса Country
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        int index = text.indexOf(":");
+        String key = text.substring(0, index);
+        String value = text.substring(index);
+        return new Country(key, value);
+
     }
 }
