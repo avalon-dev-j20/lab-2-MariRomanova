@@ -19,7 +19,7 @@ public class Task4 implements Task {
     @Override
     public void run() throws IOException {
         Properties properties = read("resources/database");
-        System.out.println(properties);
+
         /*
          * TODO(Студент): Выполнить задание №4
          *
@@ -36,12 +36,15 @@ public class Task4 implements Task {
      * @param path путь к конфигурации
      * @return новый экземпляр типа {@link Properties}
      */
-    private Properties read(String path) throws IOException {
+    private Properties read(String path) {
         Properties prop = new Properties();
         try (InputStream stream =  Properties.class.getResourceAsStream(path);){
            if (stream != null)
                prop.load(stream);
-           return prop;
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
+        return prop;
+
     }
 }

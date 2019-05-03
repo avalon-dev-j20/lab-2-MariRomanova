@@ -56,7 +56,7 @@ public class Task1 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private String read(File file) throws IOException {
-        if (file == null) throw new NullPointerException("File have no name!");
+        if (file == null) throw new FileNotFoundException("File not found!");
 
         try (ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
              InputStream fis = new FileInputStream(file);) {
@@ -86,9 +86,15 @@ public class Task1 implements Task {
      */
 
     private void write(File file, String text) throws IOException {
-        OutputStream fos=new FileOutputStream(file);
-        byte[] buffer = text.getBytes();
-        fos.write(text.getBytes(), 0, buffer.length);
+        //throw new UnsupportedOperationException("Not implemented yet!");
 
+        try(OutputStream fos=new FileOutputStream(file))
+        {
+            byte[] buffer = text.getBytes();
+            fos.write(text.getBytes(), 0, buffer.length);
+        }
+        catch(IOException ex){
+            System.out.println(ex.getMessage());
+        }
     }
 }
