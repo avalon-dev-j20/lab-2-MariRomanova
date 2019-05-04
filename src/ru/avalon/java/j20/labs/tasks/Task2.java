@@ -53,12 +53,14 @@ public class Task2 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private String read(File file) throws IOException {
-        if (file == null) throw new FileNotFoundException("File not found!");
+        if (file == null) throw new NullPointerException("File have no name!");
         try (Reader fr = new FileReader(file);) {
             StringBuilder sb = new StringBuilder();
-            char [] a = new char [3000];
-            fr.read(a);
-            sb.append(a);
+            int i;
+            char [] a = new char [30];
+            while ((i = fr.read(a))!=-1){
+                 sb.append(a,0,i);
+            }
             return sb.toString();
         }
     }
@@ -72,12 +74,8 @@ public class Task2 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private void write(File file, String text) throws IOException {
-        try(Writer fw = new FileWriter(file))
-        {
-            fw.write(text);
-        }
-        catch(IOException ex){
-            System.out.println(ex.getMessage());
-        }
+      try (Writer fw = new FileWriter(file);) {
+          fw.write(text);
+      }
     }
 }

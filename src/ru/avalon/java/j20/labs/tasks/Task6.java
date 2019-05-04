@@ -20,7 +20,7 @@ public class Task6 implements Task {
      * {@inheritDoc}
      */
     @Override
-    public void run() throws IOException, ParseException {
+    public void run() throws IOException {
         File input = new File("assets/countries.txt");
         Collection<Country> countries = read(input);
 
@@ -48,8 +48,8 @@ public class Task6 implements Task {
      * @return коллекция объектов типа {@link Country}
      * @throws IOException в случае ошибки ввода-вывода.
      */
-    private Collection<Country> read(File file) throws IOException, ParseException {
-        if (file == null) throw new FileNotFoundException("File not found!");
+    private Collection<Country> read(File file) throws IOException {
+        if (file == null) throw new NullPointerException("File have no name!");
         try (Reader fr = new FileReader(file);
              BufferedReader br = new BufferedReader(fr)) {
             Collection<Country> countries = new ArrayList<>();
