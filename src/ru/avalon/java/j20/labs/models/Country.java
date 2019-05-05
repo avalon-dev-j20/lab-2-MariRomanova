@@ -1,8 +1,7 @@
 package ru.avalon.java.j20.labs.models;
 
+import java.io.IOException;
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -73,17 +72,18 @@ public class Country {
      *
      * @param text тектс в формате 'Код:Название'
      * @return новый экземпляр типа {@Link Country}.
-     * @throws ParseException в случае, если переданная строка
+    * @throws ParseException в случае, если переданная строка
      * имеет неверный формат.
      */
-    public static Country valueOf(String text) throws StringIndexOutOfBoundsException{
+    public static Country valueOf(String text) throws ParseException{
         /*
          * TODO(Студент): Реализовать метод valueOf класса Country
          */
-
         int index = text.indexOf(":");
-        String key = text.substring(0, index);
-        String value = text.substring(index);
-        return new Country(key, value);
+        if (index==-1) throw new ParseException ("File have no valid string!!!", 0);
+            String key = text.substring(0, index);
+            String value = text.substring(index + 1);
+            return new Country(key, value);
     }
+
 }

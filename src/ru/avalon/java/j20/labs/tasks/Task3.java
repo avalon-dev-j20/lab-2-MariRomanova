@@ -58,7 +58,7 @@ public class Task3 implements Task {
             Collection<String> lines = new ArrayList<>();
            String line;
            while ((line = br.readLine()) != null){
-               lines.add(line+"\n");
+               lines.add(line);
            }
            return lines;
         }
@@ -78,8 +78,7 @@ public class Task3 implements Task {
         String all = new String (collection.toString());
        try (PrintWriter printWriter = new PrintWriter (file);){
            for (String line: collection){
-               printWriter.write(line);
-               System.lineSeparator();
+               printWriter.println(line);
            }
        }
     }
