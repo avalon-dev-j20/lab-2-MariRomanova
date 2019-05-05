@@ -2,8 +2,7 @@ package ru.avalon.java.j20.labs.tasks;
 
 import ru.avalon.java.j20.labs.Task;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Задание №1
@@ -23,6 +22,7 @@ public class Task1 implements Task {
         String text = read(input);
         write(output, text);
 
+
         /*
          * TODO(Студент): Выполнить задание №1
          *
@@ -41,7 +41,9 @@ public class Task1 implements Task {
          *
          * 3. С использованием отладчика проверить корректность работы программы.
          */
-    }
+    };
+
+
 
     /**
      * Выполняет чтение указанного файла в двоичном режиме.
@@ -54,7 +56,24 @@ public class Task1 implements Task {
      * @throws IOException в случае ошибок ввода-вывода.
      */
     private String read(File file) throws IOException {
-        throw new UnsupportedOperationException("Not implement yet!");
+        if (file == null) throw new NullPointerException("File have no name!");
+
+        try (ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+             InputStream fis = new FileInputStream(file);) {
+            byte[] buf = new byte[70000];
+            while (true) {
+                int readBytesCount = fis.read(buf);
+                if (readBytesCount == -1) {
+                    break;
+                }
+                if (readBytesCount > 0) {
+                    arrayOutputStream.write(buf, 0, readBytesCount);
+                }
+            }
+            arrayOutputStream.write(buf);
+            return arrayOutputStream.toString();
+        }
+
     }
 
     /**
@@ -65,7 +84,11 @@ public class Task1 implements Task {
      * @param text текст
      * @throws IOException в случае ошибок ввода-вывода.
      */
+
     private void write(File file, String text) throws IOException {
-        throw new UnsupportedOperationException("Not implemented yet!");
+        OutputStream fos=new FileOutputStream(file);
+        byte[] buffer = text.getBytes();
+        fos.write(text.getBytes(), 0, buffer.length);
+
     }
 }
